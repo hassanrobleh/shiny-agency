@@ -1,5 +1,5 @@
 import Card from '../../components/Card'
-import DefaultPicture from '../../assets/profil.png'
+import DefaultPicture from '../../assets/profile.png'
 
 
 const freelances = [
@@ -27,7 +27,7 @@ export default function Freelances() {
         <div>
             <h1>Freelances</h1>
             {freelances.map((profil, index) => (
-                <Card key={`${profil.name}-${index}`} title={42}  label={profil.jobTitle} picture={profil.picture}/>
+                <Card key={`${profil.name}-${index}`} title={profil.name}  label={profil.jobTitle} picture={profil.picture}/>
             ))}
         </div>
     )
