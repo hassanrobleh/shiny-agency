@@ -7,19 +7,21 @@ import Header from './components/Header'
 import Error from './components/Error'
 import Results from './pages/Results'
 import Freelances from './pages/Freelances'
-import { createGlobalStyle } from 'styled-components'
 import Footer from './components/Footer'
 import { ThemeProvider } from './utils/context'
+import GlobalStyled from './utils/style/GlobalStyled'
 
-const GlobalStyled = createGlobalStyle`
-  * {
-    font-family: 'Trebuchet MS', Helvetica, sans-serif;
-  }
+// const GlobalStyled = createGlobalStyle`
+//   * {
+//     font-family: 'Trebuchet MS', Helvetica, sans-serif;
+//   }
 
-  body {
-    margin: 0;
-  }
-`
+// GlobalStyled
+
+//   body {
+//     margin: 0;
+//   }
+// `
 
 ReactDOM.render(
   <React.StrictMode>
