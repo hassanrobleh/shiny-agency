@@ -25,30 +25,30 @@ export default function Survey() {
   const questionNumberInt = parseInt(questionNumber)
   const prevQuestionNumber = questionNumberInt === 1 ? 1 : questionNumberInt - 1
   const nextQuestionNumber = questionNumberInt + 1
-  const [surveyData, setSurveyData] = useState([])
+  const [surveyData, setSurveyData] = useState({})
   const [isDataLanding, setDataIsLanding] = useState(false)
 
-  async function fetchData() {
-    try {
-      const response = await fetch(`http://localhost:8000/survey`)
-      const { surveyData } = await response.json()
-      // console.log(surveyData)
-      setSurveyData(surveyData)
-    } catch (error) {
-      console.log('===== error =====', error)
-      setDataIsLanding(true)
-    }
-  }
+  // async function fetchData() {
+  //   try {
+  //     const response = await fetch(`http://localhost:8000/survey`)
+  //     const { surveyData } = await response.json()
+  //     // console.log(surveyData)
+  //     setSurveyData(surveyData)
+  //   } catch (error) {
+  //     console.log('===== error =====', error)
+  //     setDataIsLanding(true)
+  //   }
+  // }
 
   useEffect(() => {
-    fetchData()
-  //   setDataIsLanding(true)
-  //   fetch('http://localhost:8000/survey').then((response) =>
-  //    response.json().then(({surveyData}) => {
-  //      setSurveyData(surveyData)
-  //      setDataIsLanding(false)
-  //    })
-  //   )
+    // fetchData()
+    setDataIsLanding(true)
+    fetch('http://localhost:8000/survey').then((response) =>
+      response.json().then(({ surveyData }) => {
+        setSurveyData(surveyData)
+        setDataIsLanding(false)
+      })
+    )
   }, [])
 
   return (

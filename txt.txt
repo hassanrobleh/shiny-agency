@@ -1,0 +1,9 @@
+Je vous ai déjà parlé de Gatsby ou bien Next.js. Il s'agit de frameworks basés sur React qui permettent 
+de générer notre application côté serveur, et donc de faire du Server Side Rendering (SSR). 
+C’est-à-dire qu’ils génèrent le HTML depuis React côté serveur, et puis l'envoient avec chaque page 
+déjà générée au client. Pour ce qui est de leur routing, ils mettent leur propre solution à disposition. 
+Elle se comporte comme du routing de SPA au niveau de l'expérience utilisateur, mais qui est un peu plus complexe 
+qu'il n'y paraît. 
+
+Partie II
+II) Partagez vos donnée avec le contexte et useContext

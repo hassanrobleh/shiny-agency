@@ -1,7 +1,9 @@
-import DefaultPicture from '../../assets/profile.png'
+import { useState, useEffect } from 'react'
+// import DefaultPicture from '../../assets/profile.png'
 import styled from 'styled-components'
 import Card from '../../components/Card'
 import colors from '../../utils/style/colors'
+import { Loader } from '../../utils/style/Atoms'
 
 const ContainerCard = styled.div`
   display: grid;
@@ -26,30 +28,65 @@ const PageSubtitle = styled.h2`
   padding-bottom: 30px;
 `
 
-const freelances = [
-  {
-    name: 'Jane Doe',
-    jobTitle: 'Devops',
-    picture: DefaultPicture,
-  },
-  {
-    name: 'John Doe',
-    jobTitle: 'Developpeur frontend',
-    picture: DefaultPicture,
-  },
-  {
-    name: 'Jeanne Biche',
-    jobTitle: 'Développeuse Fullstack',
-    picture: DefaultPicture,
-  },
-  {
-    name: 'Robleh Hassan',
-    jobTitle: 'Développeuse Fullstack',
-    picture: DefaultPicture,
-  },
-]
+// const freelances = [
+//   {
+//     name: 'Jane Doe',
+//     jobTitle: 'Devops',
+//     picture: DefaultPicture,
+//   },
+//   {
+//     name: 'John Doe',
+//     jobTitle: 'Developpeur frontend',
+//     picture: DefaultPicture,
+//   },
+//   {
+//     name: 'Jeanne Biche',
+//     jobTitle: 'Développeuse Fullstack',
+//     picture: DefaultPicture,
+//   },
+//   {
+//     name: 'Robleh Hassan',
+//     jobTitle: 'Développeuse Fullstack',
+//     picture: DefaultPicture,
+//   },
+// ]
 
 export default function Freelances() {
+  const [freelances, setFreelances] = useState([])
+  const [isDataLanding, setDataIsLanding] = useState(false)
+  const [erreur, setErreur] = useState(false)
+
+  useEffect(() => {
+    // setDataIsLanding(true)
+    // fetch('http://localhost:8000/freelances').then((response) =>
+    //   response.json().then(({ freelancersList }) => {
+    //     setFreelances(freelancersList)
+    //     setDataIsLanding(false)
+    //   })
+    // )
+
+    
+    async function fetchfreelance() {
+      setDataIsLanding(true)
+      try {
+        const response = await fetch('http://localhost:8000/freelances');
+        const {freelancersList} = await response.json()
+        setFreelances(freelancersList)
+      } catch (error) {
+        console.log('------- erreur --------', error);
+        setErreur(true)
+      } finally {
+        setDataIsLanding(false)
+      }
+    }
+
+    fetchfreelance()
+  }, [])
+
+  if(erreur) {
+    return <span>Oups il y a eu un problème</span>
+  }
+
   return (
     <div>
       <PageTitle>Trouvez votre prestataire</PageTitle>
@@ -57,14 +94,19 @@ export default function Freelances() {
         Chez Shiny nous réunissons les meilleurs profils pour vous.
       </PageSubtitle>
       <ContainerCard>
-        {freelances.map((profil, index) => (
-          <Card
-            key={`${profil.name}-${index}`}
-            title={profil.name}
-            label={profil.jobTitle}
-            picture={profil.picture}
-          />
-        ))}
+        {isDataLanding ? (
+          <Loader />
+        ) : (
+          // console.log(freelances)
+          freelances.map((profil) => (
+            <Card
+              key={profil.id}
+              title={profil.name}
+              label={profil.job}
+              picture={profil.picture}
+            />
+          ))
+        )}
       </ContainerCard>
     </div>
   )
