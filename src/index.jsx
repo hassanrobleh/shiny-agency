@@ -7,7 +7,9 @@ import Header from './components/Header'
 import Error from './components/Error'
 import Results from './pages/Results'
 import Freelances from './pages/Freelances'
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
+import Footer from './components/Footer'
+import { ThemeProvider } from './utils/context'
 
 const GlobalStyled = createGlobalStyle`
   * {
@@ -22,17 +24,20 @@ const GlobalStyled = createGlobalStyle`
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <GlobalStyled/>
-      <Header/>
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/survey/:questionNumber" element={<Survey />} />
-          
-        <Route path="/results" element={<Results />} />
-        <Route path="/freelances" element={<Freelances />} />
+      <ThemeProvider>
+        <GlobalStyled />
+        <Header />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/survey/:questionNumber" element={<Survey />} />
 
-        <Route path="*" element={<Error />} />
-      </Routes>
+          <Route path="/results" element={<Results />} />
+          <Route path="/freelances" element={<Freelances />} />
+
+          <Route path="*" element={<Error />} />
+        </Routes>
+          <Footer />
+      </ThemeProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
