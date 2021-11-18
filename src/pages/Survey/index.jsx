@@ -24,7 +24,6 @@ const ReplyWrapper = styled.div`
   display: flex;
   flex-direction: row;
 `
-
 const LinkWrapper = styled.div`
   padding-top: 30px & a {
     color: black;
@@ -33,7 +32,6 @@ const LinkWrapper = styled.div`
     margin-right: 20px;
   }
 `
-
 const ReplyBox = styled.button`
   border: none;
   height: 100px;
@@ -61,10 +59,13 @@ export default function Survey() {
   const nextQuestionNumber = questionNumberInt + 1
   const [surveyData, setSurveyData] = useState({})
   const [isDataLanding, setDataIsLanding] = useState(false)
-  const { answers, saveAnswers } = useContext(SurveyContext)
   const [erreur, setErreur] = useState(false)
 
-  const saveReply = (answer) => {
+  const { answers, saveAnswers } = useContext(SurveyContext)
+
+
+
+  function saveReply(answer) {
     saveAnswers({ [questionNumber]: answer })
   }
 
@@ -108,6 +109,8 @@ export default function Survey() {
     return <span>Oups il y a eu un problème</span>
   }
 
+  console.log(questionNumber);
+
   return (
     <SurveyContainer>
       <QuestionTitle>Question {questionNumber}</QuestionTitle>
@@ -148,5 +151,7 @@ export default function Survey() {
         )}
       </LinkWrapper>
     </SurveyContainer>
+
+    
   )
 }
