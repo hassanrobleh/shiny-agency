@@ -8,7 +8,7 @@ import Error from './components/Error'
 import Results from './pages/Results'
 import Freelances from './pages/Freelances'
 import Footer from './components/Footer'
-import { ThemeProvider } from './utils/context'
+import { SurveyProvider, ThemeProvider } from './utils/context'
 import GlobalStyled from './utils/style/GlobalStyled'
 
 // const GlobalStyled = createGlobalStyle`
@@ -17,7 +17,6 @@ import GlobalStyled from './utils/style/GlobalStyled'
 //   }
 
 // GlobalStyled
-
 //   body {
 //     margin: 0;
 //   }
@@ -27,18 +26,18 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <ThemeProvider>
-        <GlobalStyled />
-        <Header />
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/survey/:questionNumber" element={<Survey />} />
-
-          <Route path="/results" element={<Results />} />
-          <Route path="/freelances" element={<Freelances />} />
-
-          <Route path="*" element={<Error />} />
-        </Routes>
+        <SurveyProvider>
+          <GlobalStyled />
+          <Header />
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route path="/survey/:questionNumber" element={<Survey />} />
+            <Route path="/results" element={<Results />} />
+            <Route path="/freelances" element={<Freelances />} />
+            <Route path="*" element={<Error />} />
+          </Routes>
           <Footer />
+        </SurveyProvider>
       </ThemeProvider>
     </Router>
   </React.StrictMode>,

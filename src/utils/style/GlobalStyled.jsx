@@ -1,7 +1,6 @@
-import { createGlobalStyle } from "styled-components";
-import { useContext } from "react";
-import { ThemeContext } from "../context";
-
+import { createGlobalStyle } from 'styled-components'
+import { useContext } from 'react'
+import { ThemeContext } from '../context'
 
 export const StyledGlobalStyled = createGlobalStyle`
   * {
@@ -9,17 +8,14 @@ export const StyledGlobalStyled = createGlobalStyle`
   }
 
   body {
-        background-color: ${({ isDarkMode }) => (isDarkMode ? 'black' : 'white')};
+        background-color: ${({ isDarkMode }) =>
+          isDarkMode ? '#2F2E41' : 'white'};
   }
 `
 
 function GlobalStyled() {
-
-    const  {theme} = useContext(ThemeContext)
-
-    return (
-        <StyledGlobalStyled isDarkMode={theme === 'dark'} />
-    )
+  const { theme } = useContext(ThemeContext)
+  return <StyledGlobalStyled isDarkMode={theme === 'dark'} />
 }
 
 export default GlobalStyled
