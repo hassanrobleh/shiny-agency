@@ -5,14 +5,14 @@ export function useFetch(url) {
   const [isLoading, setIsLoading] = useState(false)
   const [erreur, setErreur] = useState(false)
 
-  useEffect(() => {
+  useEffect(() => { 
     if (!url) return
 
     setIsLoading(true)
     async function fetchData() {
       try {
         const response = await fetch(url)
-        const data = response.json()
+        const data = await response.json()
         setData(data)
       } catch (error) {
           console.log('------ erreur ------', error);
@@ -25,4 +25,9 @@ export function useFetch(url) {
   }, [url])
 
   return { isLoading, data, erreur}
+}
+
+export function useTheme() {
+
+
 }
