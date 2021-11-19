@@ -83,7 +83,7 @@ export default function Survey() {
 
   useEffect(() => {
     // fetchData()
-    // setDataIsLanding(true)
+    setDataIsLanding(true)
     // fetch('http://localhost:8000/survey').then((response) =>
     //   response.json().then(({ surveyData }) => {
     //     setSurveyData(surveyData)
