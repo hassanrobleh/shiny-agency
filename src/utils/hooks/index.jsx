@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 
 export function useFetch(url) {
+
   const [data, setData] = useState({})
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [erreur, setErreur] = useState(false)
 
-  useEffect(() => { 
+  useEffect(() => {
     if (!url) return
 
     setIsLoading(true)
@@ -27,7 +28,4 @@ export function useFetch(url) {
   return { isLoading, data, erreur}
 }
 
-export function useTheme() {
 
-
-}

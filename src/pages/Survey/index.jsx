@@ -57,13 +57,14 @@ export default function Survey() {
   const questionNumberInt = parseInt(questionNumber)
   const prevQuestionNumber = questionNumberInt === 1 ? 1 : questionNumberInt - 1
   const nextQuestionNumber = questionNumberInt + 1
+
   // const [surveyData, setSurveyData] = useState({})
   // const [isDataLanding, setDataIsLanding] = useState(false)
   // const [erreur, setErreur] = useState(false)
 
   const { answers, saveAnswers } = useContext(SurveyContext)
 
-  const {data, isLoading, erreur } = useFetch(`http://localhost:8000/survey`)
+  const { data, isLoading, erreur } = useFetch(`http://localhost:8000/survey`)
   const surveyData = data?.surveyData
 
   function saveReply(answer) {
