@@ -9,7 +9,6 @@ const LoadinWrapper = styled.div`
   display: flex;
   justify-content: center;
 `
-
 const ResultsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -17,9 +16,8 @@ const ResultsContainer = styled.div`
   margin: 60px 90px;
   padding: 30px;
   background-color: ${({ theme }) =>
-    theme === 'light' ? '#000000' : '#ffffff'};
+    theme === 'light' ? `${colors.backgroundLight}` : `${colors.backgroundDark}`};
 `
-
 const ResultsTitle = styled.h2`
   color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
   font-weight: bold;
@@ -30,17 +28,14 @@ const ResultsTitle = styled.h2`
     padding-left: 10px;
   }
 `
-
 const JobTitle = styled.span`
   color: ${({ theme }) =>
     theme === 'light' ? colors.primary : colors.backgroundLight};
   text-transform: capitalize;
 `
-
 const DescriptionWrapper = styled.div`
   padding: 60px;
 `
-
 const JobDescription = styled.div`
   font-size: 18px;
   & > p {
@@ -51,6 +46,7 @@ const JobDescription = styled.div`
     font-size: 20px;
   }
 `
+
 
 function formatFetchParams(answers) {
   const answerNumbers = Object.keys(answers)
@@ -110,9 +106,7 @@ export default function Results() {
             </JobDescription>
           ))}
       </DescriptionWrapper>
-      {
-          console.log(resultsData)
-      }
+      {console.log(resultsData)}
     </ResultsContainer>
   )
 }
