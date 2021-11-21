@@ -76,7 +76,8 @@ export default function Survey() {
   }
 
   const { data, isLoading, erreur } = useFetch(`http://localhost:8000/survey`)
-  const surveyData = data?.surveyData
+  // console.log(data);
+  const {surveyData} = data
 
   // async function fetchData() {
   //   try {
