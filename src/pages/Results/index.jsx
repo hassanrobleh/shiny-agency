@@ -61,13 +61,14 @@ export default function Results() {
   //   const { theme } = useContext(ThemeContext)
   const { theme } = useTheme()
   const { answers } = useContext(SurveyContext)
+  console.log(answers);
   const fetchParams = formatFetchParams(answers)
 
   const { data, isLoading, erreur } = useFetch(
     `http://localhost:8000/results?${fetchParams}`
   )
 
-  //   console.log('--------- data ---------', data)
+    // console.log('--------- data ---------', data)
 
   if (erreur) {
     return <span>Il y a un problème</span>

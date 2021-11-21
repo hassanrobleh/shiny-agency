@@ -7,11 +7,10 @@ export function useFetch(url) {
   const [data, setData] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const [erreur, setErreur] = useState(false)
-
+  
   useEffect(() => {
+    
     if (!url) return
-
-    setIsLoading(true)
     async function fetchData() {
       try {
         const response = await fetch(url)

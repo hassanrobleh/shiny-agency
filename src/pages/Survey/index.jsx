@@ -17,12 +17,10 @@ const QuestionTitle = styled.h2`
   text-decoration-color: ${colors.primary};
   color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
 `
-
 const QuestionContent = styled.span`
   margin: 30px;
   color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
 `
-
 const LinkWrapper = styled.div`
   padding-top: 30px;
   & a {
@@ -32,7 +30,6 @@ const LinkWrapper = styled.div`
     margin-right: 20px;
   }
 `
-
 const ReplyBox = styled.button`
   border: none;
   height: 100px;
@@ -54,7 +51,6 @@ const ReplyBox = styled.button`
     margin-left: 15px;
   }
 `
-
 const ReplyWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -72,6 +68,8 @@ export default function Survey() {
 
   const { theme } = useTheme()
   const { answers, saveAnswers } = useContext(SurveyContext)
+
+  console.log(answers);
 
   function saveReply(answer) {
     saveAnswers({ [questionNumber]: answer })
