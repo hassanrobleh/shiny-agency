@@ -69,7 +69,7 @@ export default function Survey() {
   const { theme } = useTheme()
   const { answers, saveAnswers } = useContext(SurveyContext)
 
-  console.log(answers);
+  console.log(answers)
 
   function saveReply(answer) {
     saveAnswers({ [questionNumber]: answer })
@@ -77,7 +77,7 @@ export default function Survey() {
 
   const { data, isLoading, erreur } = useFetch(`http://localhost:8000/survey`)
   // console.log(data);
-  const {surveyData} = data
+  const { surveyData } = data
 
   // async function fetchData() {
   //   try {
@@ -135,7 +135,6 @@ export default function Survey() {
           onClick={() => saveReply(true)}
           isSelected={answers[questionNumber] === true}
           theme={theme}
-          
         >
           Oui
         </ReplyBox>
@@ -144,8 +143,6 @@ export default function Survey() {
           onClick={() => saveReply(false)}
           isSelected={answers[questionNumber] === false}
           theme={theme}
-
-          
         >
           Non
         </ReplyBox>
@@ -158,17 +155,11 @@ export default function Survey() {
         ) : (
           <Link to={`/survey/${nextQuestionNumber}`}>suivant</Link>
         )} */}
-        <Link to={`/survey/${prevQuestionNumber}`}>
-          Précédent{' '}
-        </Link>
+        <Link to={`/survey/${prevQuestionNumber}`}>Précédent </Link>
         {surveyData && surveyData[questionNumberInt + 1] ? (
-          <Link to={`/survey/${nextQuestionNumber}`}>
-            suivant
-          </Link>
+          <Link to={`/survey/${nextQuestionNumber}`}>suivant</Link>
         ) : (
-          <Link to="/results">
-            Résultats
-          </Link>
+          <Link to="/results">Résultats</Link>
         )}
       </LinkWrapper>
     </SurveyContainer>

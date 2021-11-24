@@ -46,7 +46,12 @@ const JobDescription = styled.div`
     font-size: 20px;
   }
 `
-
+export function formatListJob(title, listLength, index) {
+  if(index === listLength - 1) {
+    return title
+  }
+  return `${title},`
+}
 
 function formatFetchParams(answers) {
   const answerNumbers = Object.keys(answers)
@@ -67,14 +72,14 @@ export default function Results() {
   const { data, isLoading, erreur } = useFetch(
     `http://localhost:8000/results?${fetchParams}`
   )
-
-    console.log('--------- data ---------', data)
-
+  console.log(data)
   if (erreur) {
     return <span>Il y a un problème</span>
   }
 
   const resultsData = data?.resultsData
+
+   
 
   return isLoading ? (
     <LoadinWrapper>
@@ -90,8 +95,9 @@ export default function Results() {
               key={`result-title-${index}-${result.title}`}
               theme={theme}
             >
-              {result.title}
-              {index === resultsData.length - 1 ? '' : ','}
+              {/* {result.title}
+              {index === resultsData.length - 1 ? '' : ','} <===>*/}
+              {formatListJob(result.title, resultsData.length, index)}
             </JobTitle>
           ))}
       </ResultsTitle>

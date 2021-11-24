@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import colors from '../../utils/style/colors'
 import { StyledLink } from '../../utils/style/Atoms'
 import HomeIllustration from '../../assets/home-illustration.svg'
+import {useTheme} from '../../utils/hooks';
 
 const HomeWrapper = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ const LeftCol = styled.div`
     max-width: 250px;
   }
 `
-const StyleTitle = styled.h2`
+const StyledTitle = styled.h2`
   padding-bottom: 30px;
   max-width: 280px;
   line-height: 50px;
@@ -36,14 +37,16 @@ const Illustration = styled.img`
 `
 
 function Home() {
+
+  const { theme } = useTheme()
   return (
     <HomeWrapper>
-      <HomerContainer>
+      <HomerContainer theme={theme}>
         <LeftCol>
-          <StyleTitle>
+          <StyledTitle>
             Repérez vos besoins, on s’occupe du reste, avec les meilleurs
             talents
-          </StyleTitle>
+          </StyledTitle>
           <StyledLink to="/survey/1" $isFullLink>Faire le test</StyledLink>
         </LeftCol>
         <Illustration src={HomeIllustration}/>
