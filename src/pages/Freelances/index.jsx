@@ -2,10 +2,10 @@
 // import DefaultPicture from '../../assets/profile.png'
 import styled from 'styled-components'
 import Card from '../../components/Card'
-import colors from '../../utils/style/colors'
+// import colors from '../../utils/style/colors'
 import { Loader } from '../../utils/style/Atoms'
-import { useFetch } from '../../utils/hooks'
-
+import { useFetch, useTheme } from '../../utils/hooks'
+// CardsContainer
 const ContainerCard = styled.div`
   display: grid;
   gap: 24px;
@@ -17,13 +17,13 @@ const ContainerCard = styled.div`
 
 const PageTitle = styled.h1`
   font-size: 30px;
-  color: black;
+  color: ${({ theme }) => (theme === 'ligth' ? '#000000' : '#ffffff')};
   text-align: center;
   padding-bottom: 30px;
 `
 const PageSubtitle = styled.h2`
   font-size: 20px;
-  color: ${colors.secondary};
+  color: ${({ theme }) => (theme === 'ligth' ? '#000000' : '#ffffff')};
   font-weight: 300;
   text-align: center;
   padding-bottom: 30px;
@@ -53,21 +53,24 @@ const PageSubtitle = styled.h2`
 // ]
 
 export default function Freelances() {
-
   // const [freelances, setFreelances] = useState([])
   // const [isDataLanding, setDataIsLanding] = useState(false)
   // const [erreur, setErreur] = useState(false)
 
-  const { data, isLoading, erreur } = useFetch('http://localhost:8000/freelances')
+  const { theme } = useTheme()
+  const { data, isLoading, erreur } = useFetch(
+    `http://localhost:8000/freelances`
+  )
+  const freelanceList = data?.freelancersList
 
   // useEffect(() => {
-    // setDataIsLanding(true)
-    // fetch('http://localhost:8000/freelances').then((response) =>
-    //   response.json().then(({ freelancersList }) => {
-    //     setFreelances(freelancersList)
-    //     setDataIsLanding(false)
-    //   })
-    // )
+  // setDataIsLanding(true)
+  // fetch('http://localhost:8000/freelances').then((response) =>
+  //   response.json().then(({ freelancersList }) => {
+  //     setFreelances(freelancersList)
+  //     setDataIsLanding(false)
+  //   })
+  // )
   //   async function fetchfreelance() {
   //     setDataIsLanding(true)
   //     try {
@@ -84,31 +87,31 @@ export default function Freelances() {
   //   fetchfreelance()
   // }, [])
 
-  if(erreur) {
+  if (erreur) {
     return <span>Oups il y a eu un problème</span>
   }
 
   return (
     <div>
-      <PageTitle>Trouvez votre prestataire</PageTitle>
-      <PageSubtitle>
+      <PageTitle theme={theme}>Trouvez votre prestataire</PageTitle>
+      <PageSubtitle theme={theme}>
         Chez Shiny nous réunissons les meilleurs profils pour vous.
       </PageSubtitle>
-      <ContainerCard>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          // console.log(freelances)
-          data.map((profil) => (
+      {isLoading ? (
+        <Loader theme={theme} />
+      ) : (
+        // console.log(freelanceList)
+        <ContainerCard>
+          {freelanceList?.map((profile, index) => (
             <Card
-              key={profil.id}
-              title={profil.name}
-              label={profil.job}
-              picture={profil.picture}
+              key={`${profile.name}-${index}`}
+              label={profile.job}
+              title={profile.name}
+              picture={profile.picture}
             />
-          ))
-        )}
-      </ContainerCard>
+          ))}
+        </ContainerCard>
+      )}
     </div>
   )
 }
