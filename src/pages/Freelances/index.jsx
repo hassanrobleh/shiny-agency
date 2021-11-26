@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
 // import DefaultPicture from '../../assets/profile.png'
 import styled from 'styled-components'
 import Card from '../../components/Card'
 import colors from '../../utils/style/colors'
 import { Loader } from '../../utils/style/Atoms'
+import { useFetch } from '../../utils/hooks'
 
 const ContainerCard = styled.div`
   display: grid;
@@ -52,11 +53,14 @@ const PageSubtitle = styled.h2`
 // ]
 
 export default function Freelances() {
-  const [freelances, setFreelances] = useState([])
-  const [isDataLanding, setDataIsLanding] = useState(false)
-  const [erreur, setErreur] = useState(false)
 
-  useEffect(() => {
+  // const [freelances, setFreelances] = useState([])
+  // const [isDataLanding, setDataIsLanding] = useState(false)
+  // const [erreur, setErreur] = useState(false)
+
+  const { data, isLoading, erreur } = useFetch('http://localhost:8000/freelances')
+
+  // useEffect(() => {
     // setDataIsLanding(true)
     // fetch('http://localhost:8000/freelances').then((response) =>
     //   response.json().then(({ freelancersList }) => {
@@ -64,24 +68,21 @@ export default function Freelances() {
     //     setDataIsLanding(false)
     //   })
     // )
-
-    
-    async function fetchfreelance() {
-      setDataIsLanding(true)
-      try {
-        const response = await fetch('http://localhost:8000/freelances');
-        const {freelancersList} = await response.json()
-        setFreelances(freelancersList)
-      } catch (error) {
-        console.log('------- erreur --------', error);
-        setErreur(true)
-      } finally {
-        setDataIsLanding(false)
-      }
-    }
-
-    fetchfreelance()
-  }, [])
+  //   async function fetchfreelance() {
+  //     setDataIsLanding(true)
+  //     try {
+  //       const response = await fetch('http://localhost:8000/freelances');
+  //       const {freelancersList} = await response.json()
+  //       setFreelances(freelancersList)
+  //     } catch (error) {
+  //       console.log('------- erreur --------', error);
+  //       setErreur(true)
+  //     } finally {
+  //       setDataIsLanding(false)
+  //     }
+  //   }
+  //   fetchfreelance()
+  // }, [])
 
   if(erreur) {
     return <span>Oups il y a eu un problème</span>
@@ -94,11 +95,11 @@ export default function Freelances() {
         Chez Shiny nous réunissons les meilleurs profils pour vous.
       </PageSubtitle>
       <ContainerCard>
-        {isDataLanding ? (
+        {isLoading ? (
           <Loader />
         ) : (
           // console.log(freelances)
-          freelances.map((profil) => (
+          data.map((profil) => (
             <Card
               key={profil.id}
               title={profil.name}
