@@ -1,8 +1,9 @@
 import { rest } from 'react'
 import { setupServer } from 'msw/node'
-import { render, screen, waitFor } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import Freelances from './'
 import { ThemeProvider } from '../../utils/context'
+import { render } from '../../utils/test'
 
 const freelancersMockedData = [
     {

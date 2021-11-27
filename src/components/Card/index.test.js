@@ -14,13 +14,13 @@ describe('Card', () => {
       </ThemeProvider>
     )
 
-    const cardPicture = screen.getByRole('img')
+    const cardPicture = screen.getByRole("img")
     const cardTitle = screen.getByText(/Harry/i)
     expect(cardPicture.src).toBe('http://localhost/myPicture.png')
-    expect(cardTitle.textContent).toBe(' Harry Potter ')
+    expect(cardTitle.textContent).toBe('Harry Potter')
   })
 
-  it('Should add star around title', async () => {
+  it("Should add star around title", async () => {
     render(
       <ThemeProvider>
         <Card
@@ -32,8 +32,8 @@ describe('Card', () => {
     )
 
     const cardTitle = screen.getByText(/Harry/i)
-    const parentNode = cardTitle.closest('div')
+    const parentNode = cardTitle.closest("div")
     fireEvent.click(parentNode)
-    expect(cardTitle.textContent).toBe('⭐️ Harry Potter ⭐️')
+    expect(cardTitle.textContent).toBe("⭐️Harry Potter⭐️")
   })
 })

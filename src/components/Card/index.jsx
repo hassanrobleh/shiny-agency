@@ -15,7 +15,6 @@ const CardImage = styled.img`
   width: 80px;
   border-radius: 50%;
 `
-
 const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,7 +41,6 @@ const CardTitle = styled.div`
 function Card({ label, title, picture }) {
   const { theme } = useTheme()
   const [isFavorite, setIsFavorite] = useState(false)
-
   const star = isFavorite ? '⭐️' : ''
 
   return (
