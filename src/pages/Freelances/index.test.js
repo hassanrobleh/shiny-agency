@@ -1,7 +1,12 @@
+import React from 'react'
 import { rest } from 'msw'
 import '@testing-library/jest-dom/extend-expect'
 import { setupServer } from 'msw/node'
-import { screen, waitForElementToBeRemoved } from '@testing-library/react'
+import {
+  waitForElementToBeRemoved,
+  screen,
+  waitFor,
+} from '@testing-library/react'
 import { render } from '../../utils/test'
 import Freelances from './'
 
@@ -18,13 +23,23 @@ const freelancersMockedData = [
   },
 ]
 
+// const server = setupServer(
+// On precise ici l'url qu'il faudra intercepter
+// rest.get('http://localhost:8000/freelances', (req, res, ctx) => {
+// Là, on va pouvoir passer les datas mockées dans ce qui est retourné en json
+//     return res(ctx.json({ freelancersList: freelancersMockedData }))
+//   })
+// )
+
 const server = setupServer(
-  // On precise ici l'url qu'il faudra intercepter
   rest.get('http://localhost:8000/freelances', (req, res, ctx) => {
-    // Là, on va pouvoir passer les datas mockées dans ce qui est retourné en json
-    return res(ctx.json({ freelancesList: freelancersMockedData }))
+    return res(ctx.json({ freelancersList: freelancersMockedData }))
   })
 )
+
+// beforeAll(() => server.listen())
+// afterEach(() => server.resetHandlers())
+// afterAll(() => server.close())
 
 // Activer la simulation d'API avant le tests depuis server
 beforeAll(() => server.listen())
@@ -36,12 +51,25 @@ afterAll(() => server.close())
 it('Should display freelances names', async () => {
   render(<Freelances />)
 
-  screen.getByTestId('loader')
+  // screen.getByTestId('loader')
+  // expect(screen.queryByTestId('loader')).toBeDefined()
 
   await waitForElementToBeRemoved(() => screen.getByTestId('loader'))
+
   // await waitFor(() => {
-  expect(screen.getByTest('Harry Potter')).toBeTruthy()
-  expect(screen.getByText('Hermione Granger')).toBeTruthy()
+  expect(screen.getByText('Harry Potter')).toBeInTheDocument()
+  expect(screen.getByText('Hermione Granger')).toBeInTheDocument()
   expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
   // })
 })
+
+// it('Should display freelancers names after loader is removed', async () => {
+//   render(<Freelances />)
+
+// await waitForElementToBeRemoved(() => screen.getByTestId('loader'))
+// await waitFor(() => {
+// expect(screen.getByText('Harry Potter')).toBeInTheDocument()
+// expect(screen.getByText('Hermione Granger')).toBeInTheDocument()
+// expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
+// })
+// })

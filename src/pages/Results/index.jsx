@@ -16,7 +16,9 @@ const ResultsContainer = styled.div`
   margin: 60px 90px;
   padding: 30px;
   background-color: ${({ theme }) =>
-    theme === 'light' ? `${colors.backgroundLight}` : `${colors.backgroundDark}`};
+    theme === 'light'
+      ? `${colors.backgroundLight}`
+      : `${colors.backgroundDark}`};
 `
 const ResultsTitle = styled.h2`
   color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
@@ -46,20 +48,22 @@ const JobDescription = styled.div`
     font-size: 20px;
   }
 `
+
+export function formatQueryParams(answers) {
+  const answerNumbers = Object.keys(answers)
+
+  return answerNumbers.reduce((previousParams, answerNumber, index) => {
+    const isFirstParam = index === 0
+    const separator = isFirstParam ? '' : '&'
+    return `${previousParams}${separator}a${answerNumber}=${answers[answerNumber]}`
+  }, '')
+}
+
 export function formatListJob(title, listLength, index) {
-  if(index === listLength - 1) {
+  if (index === listLength - 1) {
     return title
   }
   return `${title},`
-}
-
-function formatFetchParams(answers) {
-  const answerNumbers = Object.keys(answers)
-  return answerNumbers.reduce((previousParams, answerNumber, index) => {
-    const isFirstParams = index === 0
-    const separator = isFirstParams ? '' : '&'
-    return `${previousParams}${separator}a${answerNumber}=${answers[answerNumber]}`
-  }, '')
 }
 
 export default function Results() {
@@ -67,7 +71,7 @@ export default function Results() {
   const { theme } = useTheme()
   const { answers } = useContext(SurveyContext)
   // console.log(answers);
-  const fetchParams = formatFetchParams(answers)
+  const fetchParams = formatQueryParams(answers)
 
   const { data, isLoading, erreur } = useFetch(
     `http://localhost:8000/results?${fetchParams}`
@@ -79,11 +83,9 @@ export default function Results() {
 
   const resultsData = data?.resultsData
 
-   
-
   return isLoading ? (
     <LoadinWrapper>
-      <Loader />
+      <Loader data-testid="loader"/>
     </LoadinWrapper>
   ) : (
     <ResultsContainer theme={theme}>
@@ -108,12 +110,12 @@ export default function Results() {
         {resultsData &&
           resultsData.map((result, index) => (
             <JobDescription key={`result-detail-${index}-${result.title}`}>
-              <JobTitle theme={theme}>{result.title}</JobTitle>
+              <JobTitle theme={theme} data-testid="job-title">{result.title}</JobTitle>
               <p>{result.description}</p>
             </JobDescription>
           ))}
       </DescriptionWrapper>
-      {console.log(resultsData)}
+      {/* {console.log(resultsData)} */}
     </ResultsContainer>
   )
 }

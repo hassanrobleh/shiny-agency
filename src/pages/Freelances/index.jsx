@@ -98,7 +98,7 @@ export default function Freelances() {
         Chez Shiny nous réunissons les meilleurs profils pour vous.
       </PageSubtitle>
       {isLoading ? (
-        <Loader theme={theme} />
+        <Loader theme={theme} data-testid="loader" />
       ) : (
         // console.log(freelanceList)
         <ContainerCard>
